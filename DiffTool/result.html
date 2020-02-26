@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Excel ITK Diff</title>
+
+    <style type="text/css">
+        table {
+            border-spacing: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .blob-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .diff-table {
+            width: 100%;
+            border-collapse: separate;
+        }
+
+        .diff-table tr:not(:last-child) .line-comments {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blob-num {
+            width: 1%;
+            min-width: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 18px;
+            color: rgba(0, 0, 0, 0.3);
+            vertical-align: top;
+            text-align: right;
+            border: solid #eee;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border-width: 0 1px 0 0;
+        }
+
+        .blob-num:hover {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .blob-num:before {
+            content: attr(data-line-number);
+        }
+
+        .blob-num.non-expandable:hover {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .blob-code {
+            position: relative;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 12px;
+            color: #333;
+            vertical-align: top;
+            white-space: pre;
+            overflow: visible;
+        }
+
+        .blob-code .x-first {
+            border-top-left-radius: .2em;
+            border-bottom-left-radius: .2em;
+        }
+
+        .blob-code .x-last {
+            border-top-right-radius: .2em;
+            border-bottom-right-radius: .2em;
+        }
+
+        .blob-code-addition {
+            background-color: #eaffea;
+        }
+
+        .blob-code-addition .x {
+            background-color: #a6f3a6;
+        }
+
+        .blob-num-addition {
+            background-color: #dbffdb;
+            border-color: #c1e9c1;
+        }
+
+        .blob-code-deletion {
+            background-color: #ffecec;
+        }
+
+        .blob-code-deletion .x {
+            background-color: #f8cbcb;
+        }
+
+        .blob-num-deletion {
+            background-color: #fdd;
+            border-color: #f1c0c0;
+        }
+
+        .selected-line.blob-code {
+            background-color: #f8eec7;
+        }
+
+        .selected-line.blob-num {
+            background-color: #f6e8b5;
+            border-color: #f0db88;
+        }
+
+        .file-diff-split .blob-code {
+            width: 49%;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .file-diff-split .empty-cell {
+            cursor: default;
+            background-color: #fafafa;
+            border-right-color: #eee;
+        }
+
+        .file {
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .file .meta {
+            text-shadow: 0 1px 0 #fff;
+            border-bottom: 1px solid #d8d8d8;
+            background-color: #f7f7f7;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: 5px 10px;
+        }
+
+        body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <h2>Diff Tool</h2>
+        <p>
+            A: Table_old.xlsx<br>
+            VS<br>
+            B: Table_new.xlsx
+        </p>
+      </div>
+
+<div id="navbar">
+    
+    <a href="#Testfallname">Testfallname</a>
+    
+    <a href="#Vorbedingungen">Vorbedingungen</a>
+    
+    <a href="#Aktion">Aktion</a>
+    
+</div>
+
+
+<div class="content">
+
+<h2 id=Testfallname>Testfallname</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 8%">#</th>
+        <th scope="col" style="width: 16%">Name</th>
+        <th scope="col">Testfallname</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+        <th scope="row">1</th>
+        <td>
+            2.2.2.1<br>
+            Excel row A: 4<br>
+            Excel row B: 3
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_innerhalb_200ms</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">Einschaltwunsch_immer_plausibel_bei_betätigter_Bremse</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">2</th>
+        <td>
+            2.2.2.2<br>
+            Excel row A: 5<br>
+            Excel row B: 4
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">keine_Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_nach_2000ms</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">Einschaltwunsch_immer_plausibel_bei_Fahrzeug_in_Bewegung</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">3</th>
+        <td>
+            2.2.2.3<br>
+            Excel row A: 6<br>
+            Excel row B: 5
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">Einschaltwunsch_unplausibel_<span class="x x-first x-last">durch_Wegfall_Bremseninformation</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">Einschaltwunsch_unplausibel_<span class="x x-first x-last">bei_nicht_betätigter&nbsp;Bremse_im_Stillstand</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">4</th>
+        <td>
+            2.2.2.5<br>
+            Excel row A: 8<br>
+            Excel row B: 7
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">Einschaltwunsch_unplausibel_<span class="x x-first x-last">bei_nicht_betätigter&nbsp;Bremse</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">Einschaltwunsch_unplausibel_<span class="x x-first x-last">durch_Wegfall_Bremseninformation</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">5</th>
+        <td>
+            2.2.3.1<br>
+            Excel row A: 16<br>
+            Excel row B: 16
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">Kommandierung_<span class="x x-first x-last">bleibt_erhalten_bei_Ladestecker_ungültig</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">Kommandierung_<span class="x x-first x-last">Antrieb_wenn_alle_Voraussetzungen_erfuellt</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">6</th>
+        <td>
+            2.2.3.2<br>
+            Excel row A: 17<br>
+            Excel row B: 17
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">Keine_Kommandierung_bei_Ladestecker_<span class="x x-first x-last">gesteckt</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">Keine_Kommandierung_bei_Ladestecker_<span class="x x-first x-last">ungültig</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+
+    </tbody>
+</table>
+
+<h2 id=Vorbedingungen>Vorbedingungen</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 8%">#</th>
+        <th scope="col" style="width: 16%">Name</th>
+        <th scope="col">Vorbedingungen</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+        <th scope="row">1</th>
+        <td>
+            2.2.2.1<br>
+            Excel row A: 4<br>
+            Excel row B: 3
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">P1:_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last"></span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">P1:<span class="x x-first x-last">&nbsp;</span>_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last">&nbsp;</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">P2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;<span class="x x-first x-last">6</span></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">&nbsp;</span>P2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;<span class="x x-first x-last">1</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">2</th>
+        <td>
+            2.2.2.2<br>
+            Excel row A: 5<br>
+            Excel row B: 4
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">P1:_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last"></span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">P1:<span class="x x-first x-last">&nbsp;</span>_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last">&nbsp;</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">P2:&nbsp;<span class="x x-first x-last">DBR_IdcDrvBrk&nbsp;=&nbsp;6</span></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">&nbsp;</span>P2:&nbsp;<span class="x x-first x-last">Setzen&nbsp;Geschwindigkeit&nbsp;&gt;&nbsp;P_vVehMov&nbsp;(&nbsp;4&nbsp;km/h)</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">3</th>
+        <td>
+            2.2.2.3<br>
+            Excel row A: 6<br>
+            Excel row B: 5
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last"></span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">P2:&nbsp;Bremspedal&nbsp;lösen</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">4</th>
+        <td>
+            2.2.2.5<br>
+            Excel row A: 8<br>
+            Excel row B: 7
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv<span class="x x-first x-last"></span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">P2:&nbsp;Bremspedal&nbsp;lösen</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last"></span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L4" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">(wichtig:&nbsp;Fahrzeugim&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">5</th>
+        <td>
+            2.2.2.7<br>
+            Excel row A: 10<br>
+            Excel row B: 9
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      <td id="R1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base"></td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base"></td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base">(wichtig:&nbsp;Fahrzeugim&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</td>      <td id="R3" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-addition base">(wichtig:&nbsp;Fahrzeug<span class="x x-first x-last">&nbsp;</span>im&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">6</th>
+        <td>
+            2.2.3.1<br>
+            Excel row A: 16<br>
+            Excel row B: 16
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      <td id="R1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">P2:&nbsp;<span class="x x-first x-last">HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;3</span></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base">P2:&nbsp;<span class="x x-first x-last">DBR_IdcDrvBrk</span>&nbsp;=&nbsp;1</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">P3:&nbsp;HVLM_s_Steckerstatus.Classifier</span>&nbsp;=&nbsp;1<span class="x x-first x-last">2</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">7</th>
+        <td>
+            2.2.3.2<br>
+            Excel row A: 17<br>
+            Excel row B: 17
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      <td id="R1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">P2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;2</td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base">P2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;<span class="x x-first x-last">3</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R3" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">P3:&nbsp;HVLM_s_Steckerstatus.Classifier&nbsp;=&nbsp;1</span>2</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+
+    </tbody>
+</table>
+
+<h2 id=Aktion>Aktion</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 8%">#</th>
+        <th scope="col" style="width: 16%">Name</th>
+        <th scope="col">Aktion</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+        <th scope="row">1</th>
+        <td>
+            2.2.1.1<br>
+            Excel row A: 2<br>
+            Excel row B: 2
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;<span class="x x-first x-last">(Annahme&nbsp;P_vVehMov&nbsp;=&nbsp;4&nbsp;km/h)</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A2:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A2:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A3.1:&nbsp;Fahrzeug&nbsp;anhalten,&nbsp;Bremse&nbsp;getreten&nbsp;lassen</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A3.1:&nbsp;Fahrzeug&nbsp;anhalten,&nbsp;Bremse&nbsp;getreten&nbsp;lassen</td>      </tr>      <tr>      <td id="L4" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-context base">A3.2:&nbsp;Fahrstufe&nbsp;R&nbsp;einlegen/&nbsp;Rückwärtsgang&nbsp;einlegen</td>      <td id="R4" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-context base">A3.2:&nbsp;Fahrstufe&nbsp;R&nbsp;einlegen/&nbsp;Rückwärtsgang&nbsp;einlegen</td>      </tr>      <tr>      <td id="L5" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-context base">A3.3:&nbsp;Rückwärts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>      <td id="R5" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-context base">A3.3:&nbsp;Rückwärts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>      </tr>      <tr>      <td id="L6" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="6"></td>      <td class="blob-code blob-code-context base">A4:&nbsp;Rückwärts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov</td>      <td id="R6" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="6"></td>      <td class="blob-code blob-code-context base">A4:&nbsp;Rückwärts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">2</th>
+        <td>
+            2.2.2.1<br>
+            Excel row A: 4<br>
+            Excel row B: 3
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;_ZAT_<span class="x x-first x-last">Kurz</span>druck</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1<span class="x x-first x-last">.1:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;Init&nbsp;(nicht&nbsp;verfügbar)</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A1.2</span>:&nbsp;_ZAT_<span class="x x-first x-last">Lang</span>druck<span class="x x-first x-last">&nbsp;</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">A2<span class="x x-first x-last">:&nbsp;innerhalb&nbsp;von&nbsp;200&nbsp;ms&nbsp;nach&nbsp;A1&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2</span></td>      <td id="R3" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-addition base">A2<span class="x x-first x-last">.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R4" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A2.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(nicht&nbsp;plausibel)</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R5" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A2.3:&nbsp;_ZAT_Langdruck</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">3</th>
+        <td>
+            2.2.2.2<br>
+            Excel row A: 5<br>
+            Excel row B: 4
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;_ZAT_<span class="x x-first x-last">Kurz</span>druck</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1<span class="x x-first x-last">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;6&nbsp;(nicht&nbsp;verfügbar)</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A1.2</span>:&nbsp;_ZAT_<span class="x x-first x-last">Lang</span>druck<span class="x x-first x-last">&nbsp;</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">A2.1:&nbsp;<span class="x x-first x-last">2000&nbsp;ms&nbsp;warten</span></td>      <td id="R3" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-addition base">A2.1:&nbsp;<span class="x x-first x-last">_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2</span></td>      <td id="R4" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;7&nbsp;(nicht&nbsp;plausibel)</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R5" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A2.3:&nbsp;_ZAT_Langdruck</span></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">4</th>
+        <td>
+            2.2.2.3<br>
+            Excel row A: 6<br>
+            Excel row B: 5
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1<span class="x x-first x-last">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;1</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1:&nbsp;_ZAT_Langdruck</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A1.2:&nbsp;_ZAT_Langdruck&nbsp;</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L4" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2&nbsp;</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L5" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.3:&nbsp;_ZAT_Langdruck&nbsp;</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L6" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="6"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A3.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L7" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="7"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A3.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;6</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L8" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="8"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A3.3</span>:&nbsp;_ZAT_Langdruck</td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">5</th>
+        <td>
+            2.2.2.4<br>
+            Excel row A: 7<br>
+            Excel row B: 6
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1.1:<span class="x x-first x-last">&nbsp;Dynamometermodus:&nbsp;Setzen&nbsp;Geschwindigkeit&nbsp;&gt;</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1.1:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span class="x x-first x-last">5</span>&nbsp;(<span class="x x-first x-last">Fehler)</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">P_vVehMov</span></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A1.2</span>:&nbsp;_ZAT_Langdruck</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A1.2:&nbsp;_ZAT_Langdruck</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L4" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="4"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.1:&nbsp;Antrieb&nbsp;deaktivieren&nbsp;durch&nbsp;Bremse&nbsp;treten&nbsp;und&nbsp;ZAT&nbsp;betätigung</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L5" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="5"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.2:&nbsp;Bremse&nbsp;lösen</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L6" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="6"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.3:</span>&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span class="x x-first x-last">4</span>&nbsp;(<span class="x x-first x-last">Init)</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L7" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="7"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.4</span>:&nbsp;_ZAT_Langdruck</td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">6</th>
+        <td>
+            2.2.2.5<br>
+            Excel row A: 8<br>
+            Excel row B: 7
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;_ZAT_Langdruck</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1<span class="x x-first x-last">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;7&nbsp;(Fehler)</span></td>      </tr>      <tr>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base"><span class="x x-first x-last">A1.2</span>:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">7</th>
+        <td>
+            2.2.2.7<br>
+            Excel row A: 10<br>
+            Excel row B: 9
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">.Classifier&nbsp;=&nbsp;nicht&nbsp;verfügbar&nbsp;</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">&nbsp;=&nbsp;6</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;_ZAT_Langdruck</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">8</th>
+        <td>
+            2.2.2.8<br>
+            Excel row A: 11<br>
+            Excel row B: 10
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">.Classifier&nbsp;=&nbsp;nicht&nbsp;verfügbar</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">&nbsp;=&nbsp;6&nbsp;(Init)</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(Fehler)</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(Fehler)</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">9</th>
+        <td>
+            2.2.2.9<br>
+            Excel row A: 12<br>
+            Excel row B: 11
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">A1.1:&nbsp;Bremse&nbsp;gelöst&nbsp;(DRB_s_IdcDrvBrk&nbsp;=&nbsp;0)</td>      <td id="R1" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-context base">A1.1:&nbsp;Bremse&nbsp;gelöst&nbsp;(DRB_s_IdcDrvBrk&nbsp;=&nbsp;0)</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span class="x x-first x-last">5</span>&nbsp;(<span class="x x-first x-last">Fehler</span>)</td>      <td id="R2" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-addition base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span class="x x-first x-last">4</span>&nbsp;(<span class="x x-first x-last">Init</span>)</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">10</th>
+        <td>
+            2.2.2.10<br>
+            Excel row A: 13<br>
+            Excel row B: 12
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">.Classifier&nbsp;=&nbsp;nicht&nbsp;verfügbar</span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class="x x-first x-last">&nbsp;=&nbsp;7</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">11</th>
+        <td>
+            2.2.2.11<br>
+            Excel row A: 14<br>
+            Excel row B: 13
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1.1:&nbsp;DBR_s_IdcDrvBrk&nbsp;=&nbsp;Init</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1.1:&nbsp;DBR_s_IdcDrvBrk&nbsp;=&nbsp;<span class="x x-first x-last">6&nbsp;(</span>Init<span class="x x-first x-last">)</span></td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A1.3:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">12</th>
+        <td>
+            2.2.3.1<br>
+            Excel row A: 16<br>
+            Excel row B: 16
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;ZAT_Kurzdruck<span class="x x-first x-last"></span></td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1:&nbsp;ZAT_Kurzdruck</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.1:&nbsp;warte&nbsp;für&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-deletion base"><span class="x x-first x-last">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</span></td>      <td class="blob-num blob-num-empty head empty-cell"></td>      <td class="blob-code blob-code-empty head empty-cell"></td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+    <tr>
+        <th scope="row">13</th>
+        <td>
+            2.2.3.2<br>
+            Excel row A: 17<br>
+            Excel row B: 17
+
+        </td>
+
+        <td>
+            <div class="container">
+<div class="file">
+<div class="data highlight blob-wrapper">
+  <table class="diff-table file-diff-split">
+  <tbody>      <tr>      <td id="L1" class="blob-num blob-num-deletion base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-deletion base">A1:&nbsp;ZAT_<span class="x x-first x-last">Lang</span>druck</td>      <td id="R1" class="blob-num blob-num-addition base js-linkable-line-number" data-line-number="1"></td>      <td class="blob-code blob-code-addition base">A1:&nbsp;ZAT_<span class="x x-first x-last">Kurz</span>druck</td>      </tr>      <tr>      <td id="L2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A2.1:&nbsp;warte&nbsp;für&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</td>      <td id="R2" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="2"></td>      <td class="blob-code blob-code-context base">A2.1:&nbsp;warte&nbsp;für&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</td>      </tr>      <tr>      <td id="L3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</td>      <td id="R3" class="blob-num blob-num-context base js-linkable-line-number" data-line-number="3"></td>      <td class="blob-code blob-code-context base">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</td>      </tr>  </tbody>
+  </table>
+</div>
+</div>
+</div>
+        </td>
+
+    </tr>
+    
+
+    </tbody>
+</table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+        window.onscroll = function() {myFunction()};
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+          } else {
+            navbar.classList.remove("sticky");
+          }
+        }
+
+        </script>
+        
+
+</body>
+</html>

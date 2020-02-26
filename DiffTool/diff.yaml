@@ -1,0 +1,1168 @@
+data: !!python/object/apply:collections.OrderedDict
+- - - 2.2.1.1
+    - A:
+        Aktion: "A1: Beschleunigen auf v = P_vVehMov - 0,1 km/h \nA2: Beschleunigen\
+          \ auf v = P_vVehMov \nA3.1: Fahrzeug anhalten, Bremse getreten lassen\n\
+          A3.2: Fahrstufe R einlegen/ R\xFCckw\xE4rtsgang einlegen\nA3.3: R\xFCckw\xE4\
+          rts beschleunigen auf |v| = P_vVehMov - 0,1 km/h \nA4: R\xFCckw\xE4rts beschleunigen\
+          \ auf |v| = P_vVehMov"
+        Erwartetes Ergebnis: "E1: Fahrzeug nicht in Bewegung (Signal erg\xE4nzen)\n\
+          E2: Fahrzeug in Bewegung (Signal erg\xE4nzen) \nE3: Fahrzeug nicht in Bewegung\
+          \ (Signal erg\xE4nzen)\nE4: Fahrzeug in Bewegung (Signal erg\xE4nzen)"
+        ID: 588009.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Pr\xFCfung des Zustands Fahrzeug in Bewegung"
+        Vorbedingungen: ''
+        row: 2
+      B:
+        Aktion: "A1: Beschleunigen auf v = P_vVehMov - 0,1 km/h (Annahme P_vVehMov\
+          \ = 4 km/h)\nA2: Beschleunigen auf v = P_vVehMov \nA3.1: Fahrzeug anhalten,\
+          \ Bremse getreten lassen\nA3.2: Fahrstufe R einlegen/ R\xFCckw\xE4rtsgang\
+          \ einlegen\nA3.3: R\xFCckw\xE4rts beschleunigen auf |v| = P_vVehMov - 0,1\
+          \ km/h \nA4: R\xFCckw\xE4rts beschleunigen auf |v| = P_vVehMov"
+        Erwartetes Ergebnis: 'E1: Fahrzeug nicht in Bewegung DrvPTAcv_CtlEval_s_StVehMtn
+          != 2
+
+          E2: Fahrzeug in Bewegung DrvPTAcv_CtlEval_s_StVehMtn = 2
+
+          E3: Fahrzeug nicht in Bewegung DrvPTAcv_CtlEval_s_StVehMtn != 2
+
+          E4: Fahrzeug in Bewegung DrvPTAcv_CtlEval_s_StVehMtn = 2'
+        ID: 588009.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Pr\xFCfung des Zustands Fahrzeug in Bewegung"
+        Vorbedingungen: ''
+        row: 2
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;<span\
+        \ class=\"x x-first x-last\">(Annahme&nbsp;P_vVehMov&nbsp;=&nbsp;4&nbsp;km/h)</span></td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A2:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;</td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A2:&nbsp;Beschleunigen&nbsp;auf&nbsp;v&nbsp;=&nbsp;P_vVehMov&nbsp;</td>\
+        \      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A3.1:&nbsp;Fahrzeug&nbsp;anhalten,&nbsp;Bremse&nbsp;getreten&nbsp;lassen</td>\
+        \      <td id=\"R3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A3.1:&nbsp;Fahrzeug&nbsp;anhalten,&nbsp;Bremse&nbsp;getreten&nbsp;lassen</td>\
+        \      </tr>      <tr>      <td id=\"L4\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"4\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A3.2:&nbsp;Fahrstufe&nbsp;R&nbsp;einlegen/&nbsp;R\xFC\
+        ckw\xE4rtsgang&nbsp;einlegen</td>      <td id=\"R4\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"4\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A3.2:&nbsp;Fahrstufe&nbsp;R&nbsp;einlegen/&nbsp;R\xFC\
+        ckw\xE4rtsgang&nbsp;einlegen</td>      </tr>      <tr>      <td id=\"L5\"\
+        \ class=\"blob-num blob-num-context base js-linkable-line-number\" data-line-number=\"\
+        5\"></td>      <td class=\"blob-code blob-code-context base\">A3.3:&nbsp;R\xFC\
+        ckw\xE4rts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>\
+        \      <td id=\"R5\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"5\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A3.3:&nbsp;R\xFCckw\xE4rts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov&nbsp;-&nbsp;0,1&nbsp;km/h&nbsp;</td>\
+        \      </tr>      <tr>      <td id=\"L6\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"6\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A4:&nbsp;R\xFCckw\xE4rts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov</td>\
+        \      <td id=\"R6\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"6\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A4:&nbsp;R\xFCckw\xE4rts&nbsp;beschleunigen&nbsp;auf&nbsp;|v|&nbsp;=&nbsp;P_vVehMov</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.1.1
+  - - 2.2.2
+    - A:
+        Aktion: ''
+        Erwartetes Ergebnis: ''
+        ID: 604433.0
+        Kategorie: "\xDCberschrift"
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: Einschaltwunsch
+        Vorbedingungen: ''
+        row: 3
+      diff: Removed test case
+      id: 2.2.2
+  - - 2.2.2.1
+    - A:
+        Aktion: 'A1: _ZAT_Kurzdruck
+
+          A2: innerhalb von 200 ms nach A1 DBR_IdcDrvBrk = 2'
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_ReqCord_s_StAcvReqTmp = 4
+
+          E1: PTAcvSrv_StDrvMd = 1
+
+          E2: PTAcvSrv_StDrvMd = 3'
+        ID: 604702.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_innerhalb_200ms
+        Text: "Dieser Testfall pr\xFCft, ob der Antriebswunsch gespeichert wird, wenn\
+          \ zum Zeitpunkt der ZAT Bet\xE4tigung der Wunsch nicht \xFCberpr\xFCfbar\
+          \ war und innerhalb der Zeit P_TiMaxWaitForVrfOfSwtOnPlaus plausibel wird."
+        Vorbedingungen: 'P1:_Ausgangszustand_Antrieb_deaktiv
+
+          P2: DBR_IdcDrvBrk = 6'
+        row: 4
+      B:
+        Aktion: "A1.1: VDSO_Vx3d = Init (nicht verf\xFCgbar)\nA1.2: _ZAT_Langdruck\
+          \ \nA2.1: _Ausgangszustand_Antrieb_deaktiv \nA2.2: VDSO_Vx3d = 65535 (nicht\
+          \ plausibel)\nA2.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "A1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 2\nA1: PTAcvSrv_StDrvMd\
+          \ = 3  \nA2: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 2\nA2: PTAcvSrv_StDrvMd\
+          \ = 3"
+        ID: 625082.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: "Einschaltwunsch_immer_plausibel_bei_bet\xE4tigter_Bremse"
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch immer plausibel ist,\
+          \ wenn die Bremse als bet\xE4tigt erkannt ist aber das Geschwindigkeitssignal\
+          \ nicht verf\xFCgbar ist oder unplausible Werte liefert."
+        Vorbedingungen: "P1: _Ausgangszustand_Antrieb_deaktiv \n P2: DBR_IdcDrvBrk\
+          \ = 1"
+        row: 3
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;_ZAT_<span class=\"x x-first\
+        \ x-last\">Kurz</span>druck</td>      <td id=\"R1\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-addition base\">A1<span class=\"x x-first x-last\">.1:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;Init&nbsp;(nicht&nbsp;verf\xFC\
+        gbar)</span></td>      </tr>      <tr>      <td class=\"blob-num blob-num-empty\
+        \ head empty-cell\"></td>      <td class=\"blob-code blob-code-empty head\
+        \ empty-cell\"></td>      <td id=\"R2\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-addition base\"><span class=\"x x-first x-last\">A1.2</span>:&nbsp;_ZAT_<span\
+        \ class=\"x x-first x-last\">Lang</span>druck<span class=\"x x-first x-last\"\
+        >&nbsp;</span></td>      </tr>      <tr>      <td id=\"L2\" class=\"blob-num\
+        \ blob-num-deletion base js-linkable-line-number\" data-line-number=\"2\"\
+        ></td>      <td class=\"blob-code blob-code-deletion base\">A2<span class=\"\
+        x x-first x-last\">:&nbsp;innerhalb&nbsp;von&nbsp;200&nbsp;ms&nbsp;nach&nbsp;A1&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2</span></td>\
+        \      <td id=\"R3\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A2<span class=\"x x-first x-last\">.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>\
+        \      </tr>      <tr>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      <td id=\"R4\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"4\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A2.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(nicht&nbsp;plausibel)</span></td>\
+        \      </tr>      <tr>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      <td id=\"R5\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"5\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A2.3:&nbsp;_ZAT_Langdruck</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_innerhalb_200ms</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">Einschaltwunsch_immer_plausibel_bei_bet\xE4\
+        tigter_Bremse</span></td>      </tr>  </tbody>\n  </table>\n</div>\n</div>\n\
+        </div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">P1:_Ausgangszustand_Antrieb_deaktiv<span\
+        \ class=\"x x-first x-last\"></span></td>      <td id=\"R1\" class=\"blob-num\
+        \ blob-num-addition base js-linkable-line-number\" data-line-number=\"1\"\
+        ></td>      <td class=\"blob-code blob-code-addition base\">P1:<span class=\"\
+        x x-first x-last\">&nbsp;</span>_Ausgangszustand_Antrieb_deaktiv<span class=\"\
+        x x-first x-last\">&nbsp;</span></td>      </tr>      <tr>      <td id=\"\
+        L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\" data-line-number=\"\
+        2\"></td>      <td class=\"blob-code blob-code-deletion base\">P2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;<span\
+        \ class=\"x x-first x-last\">6</span></td>      <td id=\"R2\" class=\"blob-num\
+        \ blob-num-addition base js-linkable-line-number\" data-line-number=\"2\"\
+        ></td>      <td class=\"blob-code blob-code-addition base\"><span class=\"\
+        x x-first x-last\">&nbsp;</span>P2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;<span class=\"\
+        x x-first x-last\">1</span></td>      </tr>  </tbody>\n  </table>\n</div>\n\
+        </div>\n</div>"
+      id: 2.2.2.1
+  - - 2.2.2.2
+    - A:
+        Aktion: 'A1: _ZAT_Kurzdruck
+
+          A2.1: 2000 ms warten
+
+          A2.2: DBR_IdcDrvBrk = 2'
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_ReqCord_s_StAcvReqTmp = 4
+
+          E1: PTAcvSrv_StDrvMd = 1
+
+          E2: DrvPTAcv_ReqCord_s_StAcvReqTmp = 0
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604722.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: keine_Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_nach_2000ms
+        Text: ''
+        Vorbedingungen: 'P1:_Ausgangszustand_Antrieb_deaktiv
+
+          P2: DBR_IdcDrvBrk = 6'
+        row: 5
+      B:
+        Aktion: "A1.1: DBR_IdcDrvBrk = 6 (nicht verf\xFCgbar)\nA1.2: _ZAT_Langdruck\
+          \ \nA2.1: _Ausgangszustand_Antrieb_deaktiv \nA2.2: DBR_IdcDrvBrk = 7 (nicht\
+          \ plausibel)\nA2.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "A1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 2\nA1: PTAcvSrv_StDrvMd\
+          \ = 3  \nA2: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 2\nA2: PTAcvSrv_StDrvMd\
+          \ = 3"
+        ID: 625315.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Einschaltwunsch_immer_plausibel_bei_Fahrzeug_in_Bewegung
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch immer plausibel ist,\
+          \ wenn das Fahrzeug als in Bewegung erkannt ist aber das Bremsensignal nicht\
+          \ verf\xFCgbar ist oder unplausible Werte liefert."
+        Vorbedingungen: "P1: _Ausgangszustand_Antrieb_deaktiv \n P2: Setzen Geschwindigkeit\
+          \ > P_vVehMov ( 4 km/h)"
+        row: 4
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;_ZAT_<span class=\"x x-first\
+        \ x-last\">Kurz</span>druck</td>      <td id=\"R1\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-addition base\">A1<span class=\"x x-first x-last\">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;6&nbsp;(nicht&nbsp;verf\xFC\
+        gbar)</span></td>      </tr>      <tr>      <td class=\"blob-num blob-num-empty\
+        \ head empty-cell\"></td>      <td class=\"blob-code blob-code-empty head\
+        \ empty-cell\"></td>      <td id=\"R2\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-addition base\"><span class=\"x x-first x-last\">A1.2</span>:&nbsp;_ZAT_<span\
+        \ class=\"x x-first x-last\">Lang</span>druck<span class=\"x x-first x-last\"\
+        >&nbsp;</span></td>      </tr>      <tr>      <td id=\"L2\" class=\"blob-num\
+        \ blob-num-deletion base js-linkable-line-number\" data-line-number=\"2\"\
+        ></td>      <td class=\"blob-code blob-code-deletion base\">A2.1:&nbsp;<span\
+        \ class=\"x x-first x-last\">2000&nbsp;ms&nbsp;warten</span></td>      <td\
+        \ id=\"R3\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A2.1:&nbsp;<span class=\"x x-first x-last\">_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>\
+        \      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2</span></td>\
+        \      <td id=\"R4\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"4\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;7&nbsp;(nicht&nbsp;plausibel)</span></td>\
+        \      </tr>      <tr>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      <td id=\"R5\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"5\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A2.3:&nbsp;_ZAT_Langdruck</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">keine_Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_nach_2000ms</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">Einschaltwunsch_immer_plausibel_bei_Fahrzeug_in_Bewegung</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">P1:_Ausgangszustand_Antrieb_deaktiv<span\
+        \ class=\"x x-first x-last\"></span></td>      <td id=\"R1\" class=\"blob-num\
+        \ blob-num-addition base js-linkable-line-number\" data-line-number=\"1\"\
+        ></td>      <td class=\"blob-code blob-code-addition base\">P1:<span class=\"\
+        x x-first x-last\">&nbsp;</span>_Ausgangszustand_Antrieb_deaktiv<span class=\"\
+        x x-first x-last\">&nbsp;</span></td>      </tr>      <tr>      <td id=\"\
+        L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\" data-line-number=\"\
+        2\"></td>      <td class=\"blob-code blob-code-deletion base\">P2:&nbsp;<span\
+        \ class=\"x x-first x-last\">DBR_IdcDrvBrk&nbsp;=&nbsp;6</span></td>     \
+        \ <td id=\"R2\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">&nbsp;</span>P2:&nbsp;<span class=\"\
+        x x-first x-last\">Setzen&nbsp;Geschwindigkeit&nbsp;&gt;&nbsp;P_vVehMov&nbsp;(&nbsp;4&nbsp;km/h)</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.2
+  - - 2.2.2.3
+    - A:
+        Aktion: "A1.1: DBR_IdcDrvBrk = 1\nA1.2: _ZAT_Langdruck \nA2.1: _Ausgangszustand_Antrieb_deaktiv\
+          \ \nA2.2: DBR_IdcDrvBrk = 2 \nA2.3: _ZAT_Langdruck \nA3.1: _Ausgangszustand_Antrieb_deaktiv\
+          \ \nA3.2: DBR_IdcDrvBrk = 6\nA3.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "A1: Antriebswunsch plausibel (=)\nA1: Antrieb wird aktiviert\
+          \  \nA2: Antriebswunsch plausibel\nA2: Antrieb wird aktiviert \nA3: Antriebswunsch\
+          \ unplausibel  \nA3: Antrieb wird nicht aktiviert"
+        ID: 588012.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Einschaltwunsch_unplausibel_durch_Wegfall_Bremseninformation
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel wird,\
+          \ wenn die Bremspedalinformation ung\xFCltig wird."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv'
+        row: 6
+      B:
+        Aktion: 'A1: _ZAT_Langdruck'
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 1 (Antriebswunsch
+          unplausibel)
+
+          E1: PTAcvSrv_StDrvMd = 1'
+        ID: 604556.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: "Einschaltwunsch_unplausibel_bei_nicht_bet\xE4tigter Bremse_im_Stillstand"
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel ist, wenn\
+          \ die Bremse nicht getreten ist solang das Fahrzeug sich im Stillstand befindet"
+        Vorbedingungen: "P1: _Ausgangszustand_Antrieb_deaktiv\nP2: Bremspedal l\xF6\
+          sen"
+        row: 5
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1<span class=\"x x-first x-last\">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;1</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1:&nbsp;_ZAT_Langdruck</td>      </tr>      <tr>      <td id=\"\
+        L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\" data-line-number=\"\
+        2\"></td>      <td class=\"blob-code blob-code-deletion base\"><span class=\"\
+        x x-first x-last\">A1.2:&nbsp;_ZAT_Langdruck&nbsp;</span></td>      <td class=\"\
+        blob-num blob-num-empty head empty-cell\"></td>      <td class=\"blob-code\
+        \ blob-code-empty head empty-cell\"></td>      </tr>      <tr>      <td id=\"\
+        L3\" class=\"blob-num blob-num-deletion base js-linkable-line-number\" data-line-number=\"\
+        3\"></td>      <td class=\"blob-code blob-code-deletion base\"><span class=\"\
+        x x-first x-last\">A2.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L4\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"4\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A2.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;2&nbsp;</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L5\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"5\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A2.3:&nbsp;_ZAT_Langdruck&nbsp;</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L6\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"6\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A3.1:&nbsp;_Ausgangszustand_Antrieb_deaktiv&nbsp;</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L7\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"7\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A3.2:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;6</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L8\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"8\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A3.3</span>:&nbsp;_ZAT_Langdruck</td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>  </tbody>\n\
+        \  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">Einschaltwunsch_unplausibel_<span class=\"\
+        x x-first x-last\">durch_Wegfall_Bremseninformation</span></td>      <td id=\"\
+        R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\" data-line-number=\"\
+        1\"></td>      <td class=\"blob-code blob-code-addition base\">Einschaltwunsch_unplausibel_<span\
+        \ class=\"x x-first x-last\">bei_nicht_bet\xE4tigter&nbsp;Bremse_im_Stillstand</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv<span class=\"x x-first\
+        \ x-last\"></span></td>      </tr>      <tr>      <td class=\"blob-num blob-num-empty\
+        \ head empty-cell\"></td>      <td class=\"blob-code blob-code-empty head\
+        \ empty-cell\"></td>      <td id=\"R2\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-addition base\"><span class=\"x x-first x-last\">P2:&nbsp;Bremspedal&nbsp;l\xF6\
+        sen</span></td>      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.3
+  - - 2.2.2.4
+    - A:
+        Aktion: "A1.1: Dynamometermodus: Setzen Geschwindigkeit >\nP_vVehMov\nA1.2:\
+          \ _ZAT_Langdruck\nA2.1: Antrieb deaktivieren durch Bremse treten und ZAT\
+          \ bet\xE4tigung\nA2.2: Bremse l\xF6sen\nA2.3: VDSO_Vx3d = 65534 (Init)\n\
+          A2.4: _ZAT_Langdruck"
+        Erwartetes Ergebnis: 'E1: Antriebswunsch plausibel (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp
+          = 2)
+
+          E1: PTAcvSrv_StDrvMd = 3
+
+          E2: Antriebswunsch unplausibel (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 1)
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604463.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel wird,\
+          \ wenn die Fahrzeuggeschwindigkeitsinformation ung\xFCltig wird."
+        Vorbedingungen: ''
+        row: 7
+      B:
+        Aktion: 'A1.1: VDSO_Vx3d = 65535 (Fehler)
+
+          A1.2: _ZAT_Langdruck'
+        Erwartetes Ergebnis: 'E1: Antriebswunsch unplausibel (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp
+          = 1)
+
+          E1: PTAcvSrv_StDrvMd = 1'
+        ID: 604463.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel wird,\
+          \ wenn die Fahrzeuggeschwindigkeitsinformation ung\xFCltig wird w\xE4hrend\
+          \ die Bremspedalinformation \"Bremse nicht getreten\" anzeigt"
+        Vorbedingungen: ''
+        row: 6
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.1:<span class=\"x x-first x-last\"\
+        >&nbsp;Dynamometermodus:&nbsp;Setzen&nbsp;Geschwindigkeit&nbsp;&gt;</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1.1:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span class=\"x x-first x-last\"\
+        >5</span>&nbsp;(<span class=\"x x-first x-last\">Fehler)</span></td>     \
+        \ </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-deletion base\
+        \ js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">P_vVehMov</span></td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A1.2</span>:&nbsp;_ZAT_Langdruck</td>\
+        \      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">A1.2:&nbsp;_ZAT_Langdruck</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L4\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"4\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A2.1:&nbsp;Antrieb&nbsp;deaktivieren&nbsp;durch&nbsp;Bremse&nbsp;treten&nbsp;und&nbsp;ZAT&nbsp;bet\xE4\
+        tigung</span></td>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      </tr>      <tr>      <td id=\"L5\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"5\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">A2.2:&nbsp;Bremse&nbsp;l\xF6\
+        sen</span></td>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      </tr>      <tr>      <td id=\"L6\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"6\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">A2.3:</span>&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span\
+        \ class=\"x x-first x-last\">4</span>&nbsp;(<span class=\"x x-first x-last\"\
+        >Init)</span></td>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      </tr>      <tr>      <td id=\"L7\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"7\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">A2.4</span>:&nbsp;_ZAT_Langdruck</td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>  </tbody>\n\
+        \  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.4
+  - - 2.2.2.5
+    - A:
+        Aktion: 'A1: _ZAT_Langdruck'
+        Erwartetes Ergebnis: 'E1: Antriebswunsch unplausibel (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp
+          = 1)
+
+          E1: PTAcvSrv_StDrvMd = 1'
+        ID: 604556.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: "Einschaltwunsch_unplausibel_bei_nicht_bet\xE4tigter Bremse"
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel ist, wenn\
+          \ die Bremse nicht getreten ist."
+        Vorbedingungen: "P1: _Ausgangszustand_Antrieb_deaktiv\nP2: Bremspedal l\xF6\
+          sen\n\n(wichtig: Fahrzeugim Stillstand und es wird eine plausible Geschwindigkeitsinformation\
+          \ gesendet --> wird durch unmanipulierte Modellwerte erreicht)"
+        row: 8
+      B:
+        Aktion: 'A1.1: DBR_IdcDrvBrk = 7 (Fehler)
+
+          A1.2: _ZAT_Langdruck'
+        Erwartetes Ergebnis: 'A1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 1
+
+          A2: PTAcvSrv_StDrvMd = 1'
+        ID: 588012.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Einschaltwunsch_unplausibel_durch_Wegfall_Bremseninformation
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel wird,\
+          \ wenn die Bremspedalinformation ung\xFCltig wird."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv'
+        row: 7
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;_ZAT_Langdruck</td>      <td\
+        \ id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1<span class=\"x x-first x-last\">.1:&nbsp;DBR_IdcDrvBrk&nbsp;=&nbsp;7&nbsp;(Fehler)</span></td>\
+        \      </tr>      <tr>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\"><span class=\"x x-first x-last\">A1.2</span>:&nbsp;_ZAT_Langdruck</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">Einschaltwunsch_unplausibel_<span class=\"\
+        x x-first x-last\">bei_nicht_bet\xE4tigter&nbsp;Bremse</span></td>      <td\
+        \ id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">Einschaltwunsch_unplausibel_<span class=\"x x-first x-last\">durch_Wegfall_Bremseninformation</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv<span\
+        \ class=\"x x-first x-last\"></span></td>      <td id=\"R1\" class=\"blob-num\
+        \ blob-num-addition base js-linkable-line-number\" data-line-number=\"1\"\
+        ></td>      <td class=\"blob-code blob-code-addition base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">P2:&nbsp;Bremspedal&nbsp;l\xF6\
+        sen</span></td>      <td class=\"blob-num blob-num-empty head empty-cell\"\
+        ></td>      <td class=\"blob-code blob-code-empty head empty-cell\"></td>\
+        \      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\"></span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L4\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"4\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">(wichtig:&nbsp;Fahrzeugim&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>  </tbody>\n\
+        \  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.5
+  - - 2.2.2.6
+    - A:
+        Aktion: ''
+        Erwartetes Ergebnis: 'E1: Antriebswunsch unplausibel (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp
+          = 1)
+
+          E1: PTAcvSrv_StDrvMd = 1'
+        ID: 604558.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel ist, wenn\
+          \ sowohl die Fahrzeuggeschwindigkeitsinformation als auch die Bremspedalinformation\
+          \ unplausibel ist."
+        Vorbedingungen: ''
+        row: 9
+      B:
+        Aktion: ''
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 1
+
+          E1: PTAcvSrv_StDrvMd = 1'
+        ID: 604558.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunsch unplausibel ist, wenn\
+          \ sowohl die Fahrzeuggeschwindigkeitsinformation als auch die Bremspedalinformation\
+          \ unplausibel ist."
+        Vorbedingungen: ''
+        row: 8
+      id: 2.2.2.6
+  - - 2.2.2.7
+    - A:
+        Aktion: "A1.1: DBR_s_IdcDrvBrk.Classifier = nicht verf\xFCgbar \nA1.2: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "E1: Antriebswunsch nicht \xFCberpr\xFCfbar (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp\
+          \ = 0)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604560.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+
+          (wichtig: Fahrzeugim Stillstand und es wird eine plausible Geschwindigkeitsinformation
+          gesendet --> wird durch unmanipulierte Modellwerte erreicht)'
+        row: 10
+      B:
+        Aktion: 'A1.1: DBR_s_IdcDrvBrk = 6
+
+          A1.2: _ZAT_Langdruck'
+        Erwartetes Ergebnis: "E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 0 (Antriebswunsch\
+          \ nicht \xFCberpr\xFCfbar)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604560.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+
+          (wichtig: Fahrzeug im Stillstand und es wird eine plausible Geschwindigkeitsinformation
+          gesendet --> wird durch unmanipulierte Modellwerte erreicht)'
+        row: 9
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"\
+        x x-first x-last\">.Classifier&nbsp;=&nbsp;nicht&nbsp;verf\xFCgbar&nbsp;</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"x x-first x-last\">&nbsp;=&nbsp;6</span></td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A1.2:&nbsp;_ZAT_Langdruck</td>      <td\
+        \ id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.2:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>\n  </table>\n\
+        </div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-context base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>\
+        \      <td id=\"L2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\"></td>      <td id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\"></td>      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">(wichtig:&nbsp;Fahrzeugim&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</td>\
+        \      <td id=\"R3\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">(wichtig:&nbsp;Fahrzeug<span class=\"x x-first x-last\">&nbsp;</span>im&nbsp;Stillstand&nbsp;und&nbsp;es&nbsp;wird&nbsp;eine&nbsp;plausible&nbsp;Geschwindigkeitsinformation&nbsp;gesendet&nbsp;--&gt;&nbsp;wird&nbsp;durch&nbsp;unmanipulierte&nbsp;Modellwerte&nbsp;erreicht)</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.7
+  - - 2.2.2.8
+    - A:
+        Aktion: "A1.1: DBR_s_IdcDrvBrk.Classifier = nicht verf\xFCgbar\nA1.2: VDSO_Vx3d\
+          \ = 65535 (Fehler)\nA1.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "E1: Antriebswunsch nicht \xFCberpr\xFCfbar (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp\
+          \ = 0)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604572.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ ung\xFCltig ist."
+        Vorbedingungen: ''
+        row: 11
+      B:
+        Aktion: 'A1.1: DBR_s_IdcDrvBrk = 6 (Init)
+
+          A1.2: VDSO_Vx3d = 65535 (Fehler)
+
+          A1.3: _ZAT_Langdruck'
+        Erwartetes Ergebnis: "E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 0 (Antriebswunsch\
+          \ nicht \xFCberpr\xFCfbar)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604572.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "Dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ ung\xFCltig ist."
+        Vorbedingungen: ''
+        row: 10
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"\
+        x x-first x-last\">.Classifier&nbsp;=&nbsp;nicht&nbsp;verf\xFCgbar</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"x x-first x-last\">&nbsp;=&nbsp;6&nbsp;(Init)</span></td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(Fehler)</td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65535&nbsp;(Fehler)</td>      </tr>\
+        \      <tr>      <td id=\"L3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id=\"R3\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"3\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A1.3:&nbsp;_ZAT_Langdruck</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.8
+  - - 2.2.2.9
+    - A:
+        Aktion: "A1.1: Bremse gel\xF6st (DRB_s_IdcDrvBrk = 0)\nA1.2: VDSO_Vx3d = 65535\
+          \ (Fehler)\nA1.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "E1: Antriebswunsch nicht \xFCberpr\xFCfbar (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp\
+          \ = 0)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604574.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremse nicht getreten ist und die Geschwindigkeitsinformation\
+          \ ung\xFCltig ist."
+        Vorbedingungen: ''
+        row: 12
+      B:
+        Aktion: "A1.1: Bremse gel\xF6st (DRB_s_IdcDrvBrk = 0)\nA1.2: VDSO_Vx3d = 65534\
+          \ (Init)\nA1.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 0 (Antriebswunsch\
+          \ nicht \xFCberpr\xFCfbar)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604574.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremse nicht getreten ist und die Geschwindigkeitsinformation\
+          \ ung\xFCltig ist."
+        Vorbedingungen: ''
+        row: 11
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A1.1:&nbsp;Bremse&nbsp;gel\xF6st&nbsp;(DRB_s_IdcDrvBrk&nbsp;=&nbsp;0)</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.1:&nbsp;Bremse&nbsp;gel\xF6st&nbsp;(DRB_s_IdcDrvBrk&nbsp;=&nbsp;0)</td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span\
+        \ class=\"x x-first x-last\">5</span>&nbsp;(<span class=\"x x-first x-last\"\
+        >Fehler</span>)</td>      <td id=\"R2\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-addition base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;6553<span\
+        \ class=\"x x-first x-last\">4</span>&nbsp;(<span class=\"x x-first x-last\"\
+        >Init</span>)</td>      </tr>      <tr>      <td id=\"L3\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"3\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A1.3:&nbsp;_ZAT_Langdruck</td>\
+        \      <td id=\"R3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.3:&nbsp;_ZAT_Langdruck</td>      </tr>  </tbody>\n  </table>\n\
+        </div>\n</div>\n</div>"
+      id: 2.2.2.9
+  - - 2.2.2.10
+    - A:
+        Aktion: "A1.1: DBR_s_IdcDrvBrk.Classifier = nicht verf\xFCgbar\nA1.2: VDSO_Vx3d\
+          \ = 65534 (Init)\nA1.3: _ZAT_Langdruck"
+        Erwartetes Ergebnis: "E1: Antriebswunsch nicht \xFCberpr\xFCfbar (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp\
+          \ = 0)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604602.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ nicht verf\xFCgbar ist."
+        Vorbedingungen: ''
+        row: 13
+      B:
+        Aktion: 'A1.1: DBR_s_IdcDrvBrk = 7
+
+          A1.2: VDSO_Vx3d = 65534 (Init)
+
+          A1.3: _ZAT_Langdruck'
+        Erwartetes Ergebnis: "E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 0 (Antriebswunsch\
+          \ nicht \xFCberpr\xFCfbar)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604602.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ nicht verf\xFCgbar ist."
+        Vorbedingungen: ''
+        row: 12
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"\
+        x x-first x-last\">.Classifier&nbsp;=&nbsp;nicht&nbsp;verf\xFCgbar</span></td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1.1:&nbsp;DBR_s_IdcDrvBrk<span class=\"x x-first x-last\">&nbsp;=&nbsp;7</span></td>\
+        \      </tr>      <tr>      <td id=\"L2\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"2\"></td>      <td class=\"\
+        blob-code blob-code-context base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      </tr>\
+        \      <tr>      <td id=\"L3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id=\"R3\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"3\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A1.3:&nbsp;_ZAT_Langdruck</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.10
+  - - 2.2.2.11
+    - A:
+        Aktion: 'A1.1: DBR_s_IdcDrvBrk = Init
+
+          A1.2: VDSO_Vx3d = 65534 (Init)
+
+          A1.3: _ZAT_Langdruck'
+        Erwartetes Ergebnis: "E1: Antriebswunsch nicht \xFCberpr\xFCfbar (DrvPTAcv_CtlEval_s_StAcvCdnFufTmp\
+          \ = 0)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604604.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ nicht verf\xFCgbar ist."
+        Vorbedingungen: ''
+        row: 14
+      B:
+        Aktion: 'A1.1: DBR_s_IdcDrvBrk = 6 (Init)
+
+          A1.2: VDSO_Vx3d = 65534 (Init)
+
+          A1.3: _ZAT_Langdruck'
+        Erwartetes Ergebnis: "E1: DrvPTAcv_CtlEval_s_StAcvCdnFufTmp = 0 (Antriebswunsch\
+          \ nicht \xFCberpr\xFCfbar)\nE1: PTAcvSrv_StDrvMd = 1"
+        ID: 604604.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: ''
+        Text: "dieser Testfall pr\xFCft, ob der Einschaltwunschnicht \xFCberpr\xFC\
+          fbar ist, wenn die Bremseninformation nicht verf\xFCgbar ist und die Geschwindigkeitsinformation\
+          \ nicht verf\xFCgbar ist."
+        Vorbedingungen: ''
+        row: 13
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1.1:&nbsp;DBR_s_IdcDrvBrk&nbsp;=&nbsp;Init</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">A1.1:&nbsp;DBR_s_IdcDrvBrk&nbsp;=&nbsp;<span class=\"x x-first x-last\"\
+        >6&nbsp;(</span>Init<span class=\"x x-first x-last\">)</span></td>      </tr>\
+        \      <tr>      <td id=\"L2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      <td\
+        \ id=\"R2\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.2:&nbsp;VDSO_Vx3d&nbsp;=&nbsp;65534&nbsp;(Init)</td>      </tr>\
+        \      <tr>      <td id=\"L3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A1.3:&nbsp;_ZAT_Langdruck</td>      <td id=\"R3\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"3\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A1.3:&nbsp;_ZAT_Langdruck</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.2.11
+  - - 2.2.3
+    - A:
+        Aktion: ''
+        Erwartetes Ergebnis: ''
+        ID: 604606.0
+        Kategorie: "\xDCberschrift"
+        Status: In Bearbeitung
+        Testfallname: Kommandierung Antrieb
+        Text: ''
+        Vorbedingungen: ''
+        row: 15
+      diff: Removed test case
+      id: 2.2.3
+  - - 2.2.3.1
+    - A:
+        Aktion: "A1: ZAT_Kurzdruck\nA2.1: warte f\xFCr t = 5 Sekunden\nA2.2: HVLM_s_Steckerstatus.Value\
+          \ = 1"
+        Erwartetes Ergebnis: 'E1: PTAcvSrv_StDrvMd = 1
+
+          E1: DrvPTAcv_s_StAcvReq = 4
+
+          E2: PTAcvSrv_StDrvMd = 3'
+        ID: 604608.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: "Kommandierung_bleibt_erhalten_bei_Ladestecker_ung\xFCltig"
+        Text: "dieser Testfall pr\xFCft, ob die Einschaltkommandierung des Antriebs\
+          \ aufrecht erhalten wird, solange die Ladesteckerinformation auf ung\xFC\
+          ltig steht und dann umgesetzt wird, sobald die Information auf Stecker gesteckt\
+          \ wechselt."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+          P2: HVLM_s_Steckerstatus.Value = 3
+
+          P3: HVLM_s_Steckerstatus.Classifier = 12'
+        row: 16
+      B:
+        Aktion: 'A1: ZAT_Kurzdruck'
+        Erwartetes Ergebnis: 'E1: PTAcvSrv_StDrvMd = 3
+
+          E1: DrvPTAcv_s_StAcvReq = 4
+
+          E1: PTAcvSrv_StPTAcvReq = 3'
+        ID: 626950.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Kommandierung_Antrieb_wenn_alle_Voraussetzungen_erfuellt
+        Text: "dieser Testfall pr\xFCft, ob die Einschaltkommandierung des Antriebs\
+          \ umgesetzt wird, wenn alle fahrzeugseitigen Voraussetzungen erf\xFCllt\
+          \ sind"
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+          P2: DBR_IdcDrvBrk = 1'
+        row: 16
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;ZAT_Kurzdruck<span class=\"x\
+        \ x-first x-last\"></span></td>      <td id=\"R1\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-addition base\">A1:&nbsp;ZAT_Kurzdruck</td>      </tr>\
+        \      <tr>      <td id=\"L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A2.1:&nbsp;warte&nbsp;f\xFCr&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>   \
+        \   <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\"><span class=\"x x-first x-last\">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</span></td>\
+        \      <td class=\"blob-num blob-num-empty head empty-cell\"></td>      <td\
+        \ class=\"blob-code blob-code-empty head empty-cell\"></td>      </tr>  </tbody>\n\
+        \  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">Kommandierung_<span class=\"x x-first\
+        \ x-last\">bleibt_erhalten_bei_Ladestecker_ung\xFCltig</span></td>      <td\
+        \ id=\"R1\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">Kommandierung_<span class=\"x x-first x-last\">Antrieb_wenn_alle_Voraussetzungen_erfuellt</span></td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-context base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>\
+        \      <td id=\"L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\">P2:&nbsp;<span class=\"x x-first x-last\">HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;3</span></td>\
+        \      <td id=\"R2\" class=\"blob-num blob-num-addition base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-addition\
+        \ base\">P2:&nbsp;<span class=\"x x-first x-last\">DBR_IdcDrvBrk</span>&nbsp;=&nbsp;1</td>\
+        \      </tr>      <tr>      <td id=\"L3\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"3\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\"><span class=\"x x-first x-last\">P3:&nbsp;HVLM_s_Steckerstatus.Classifier</span>&nbsp;=&nbsp;1<span\
+        \ class=\"x x-first x-last\">2</span></td>      <td class=\"blob-num blob-num-empty\
+        \ head empty-cell\"></td>      <td class=\"blob-code blob-code-empty head\
+        \ empty-cell\"></td>      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.3.1
+  - - 2.2.3.2
+    - A:
+        Aktion: "A1: ZAT_Langdruck\nA2.1: warte f\xFCr t = 5 Sekunden\nA2.2: HVLM_s_Steckerstatus.Value\
+          \ = 1"
+        Erwartetes Ergebnis: 'E1: PTAcvSrv_StDrvMd = 1
+
+          E1: DrvPTAcv_s_StAcvReq = 0
+
+          E1: Idc_ChrgPlug = 1
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604610.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Keine_Kommandierung_bei_Ladestecker_gesteckt
+        Text: "dieser Testfall pr\xFCft, dass bei gestecktem Ladestecker kein Einschalten\
+          \ des Antriebs kommandiert wird"
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+          P2: HVLM_s_Steckerstatus.Value = 2'
+        row: 17
+      B:
+        Aktion: "A1: ZAT_Kurzdruck\nA2.1: warte f\xFCr t = 5 Sekunden\nA2.2: HVLM_s_Steckerstatus.Value\
+          \ = 1"
+        Erwartetes Ergebnis: 'E1: PTAcvSrv_StDrvMd = 1
+
+          E1: DrvPTAcv_s_StAcvReq = 4
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604608.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: "Keine_Kommandierung_bei_Ladestecker_ung\xFCltig"
+        Text: "dieser Testfall pr\xFCft, ob die Einschaltkommandierung des Antriebs\
+          \ nicht umgesetzt wird, wenn die HV-Ladesteckerinformation nicht verf\xFC\
+          gbar ist."
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+          P2: HVLM_s_Steckerstatus.Value = 3
+
+          P3: HVLM_s_Steckerstatus.Classifier = 12'
+        row: 17
+      diff: Found
+      diff_Aktion: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">A1:&nbsp;ZAT_<span class=\"x x-first x-last\"\
+        >Lang</span>druck</td>      <td id=\"R1\" class=\"blob-num blob-num-addition\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-addition base\">A1:&nbsp;ZAT_<span class=\"x x-first x-last\"\
+        >Kurz</span>druck</td>      </tr>      <tr>      <td id=\"L2\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"2\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A2.1:&nbsp;warte&nbsp;f\xFC\
+        r&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</td>      <td id=\"R2\" class=\"blob-num\
+        \ blob-num-context base js-linkable-line-number\" data-line-number=\"2\"></td>\
+        \      <td class=\"blob-code blob-code-context base\">A2.1:&nbsp;warte&nbsp;f\xFC\
+        r&nbsp;t&nbsp;=&nbsp;5&nbsp;Sekunden</td>      </tr>      <tr>      <td id=\"\
+        L3\" class=\"blob-num blob-num-context base js-linkable-line-number\" data-line-number=\"\
+        3\"></td>      <td class=\"blob-code blob-code-context base\">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</td>\
+        \      <td id=\"R3\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"3\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">A2.2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;1</td>      </tr>\
+        \  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      diff_Testfallname: "<div class=\"container\">\n<div class=\"file\">\n<div class=\"\
+        data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-deletion\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-deletion base\">Keine_Kommandierung_bei_Ladestecker_<span\
+        \ class=\"x x-first x-last\">gesteckt</span></td>      <td id=\"R1\" class=\"\
+        blob-num blob-num-addition base js-linkable-line-number\" data-line-number=\"\
+        1\"></td>      <td class=\"blob-code blob-code-addition base\">Keine_Kommandierung_bei_Ladestecker_<span\
+        \ class=\"x x-first x-last\">ung\xFCltig</span></td>      </tr>  </tbody>\n\
+        \  </table>\n</div>\n</div>\n</div>"
+      diff_Vorbedingungen: "<div class=\"container\">\n<div class=\"file\">\n<div\
+        \ class=\"data highlight blob-wrapper\">\n  <table class=\"diff-table file-diff-split\"\
+        >\n  <tbody>      <tr>      <td id=\"L1\" class=\"blob-num blob-num-context\
+        \ base js-linkable-line-number\" data-line-number=\"1\"></td>      <td class=\"\
+        blob-code blob-code-context base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>\
+        \      <td id=\"R1\" class=\"blob-num blob-num-context base js-linkable-line-number\"\
+        \ data-line-number=\"1\"></td>      <td class=\"blob-code blob-code-context\
+        \ base\">P1:&nbsp;_Ausgangszustand_Antrieb_deaktiv</td>      </tr>      <tr>\
+        \      <td id=\"L2\" class=\"blob-num blob-num-deletion base js-linkable-line-number\"\
+        \ data-line-number=\"2\"></td>      <td class=\"blob-code blob-code-deletion\
+        \ base\">P2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;2</td>      <td id=\"\
+        R2\" class=\"blob-num blob-num-addition base js-linkable-line-number\" data-line-number=\"\
+        2\"></td>      <td class=\"blob-code blob-code-addition base\">P2:&nbsp;HVLM_s_Steckerstatus.Value&nbsp;=&nbsp;<span\
+        \ class=\"x x-first x-last\">3</span></td>      </tr>      <tr>      <td class=\"\
+        blob-num blob-num-empty head empty-cell\"></td>      <td class=\"blob-code\
+        \ blob-code-empty head empty-cell\"></td>      <td id=\"R3\" class=\"blob-num\
+        \ blob-num-addition base js-linkable-line-number\" data-line-number=\"3\"\
+        ></td>      <td class=\"blob-code blob-code-addition base\"><span class=\"\
+        x x-first x-last\">P3:&nbsp;HVLM_s_Steckerstatus.Classifier&nbsp;=&nbsp;1</span>2</td>\
+        \      </tr>  </tbody>\n  </table>\n</div>\n</div>\n</div>"
+      id: 2.2.3.2
+  - - 2.2.2.12
+    - B:
+        Aktion: "A1: _ZAT_Kurzdruck\nA2.1: innerhalb von 200 ms nach A1 DBR_IdcDrvBrk\
+          \ = 2 \nA2.2: Warte 200 ms"
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_ReqCord_s_StAcvReqTmp = 4
+
+          E1: PTAcvSrv_StDrvMd = 1
+
+          E2: PTAcvSrv_StDrvMd = 3'
+        ID: 604702.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_innerhalb_200ms
+        Text: "Dieser Testfall pr\xFCft, ob der Antriebswunsch gespeichert wird, wenn\
+          \ zum Zeitpunkt der ZAT Bet\xE4tigung der Wunsch nicht \xFCberpr\xFCfbar\
+          \ war und innerhalb der Zeit P_TiMaxWaitForVrfOfSwtOnPlaus plausibel wird."
+        Vorbedingungen: 'P1:_Ausgangszustand_Antrieb_deaktiv
+
+          P2: DBR_IdcDrvBrk = 6'
+        row: 14
+      diff: New test case
+      id: 2.2.2.12
+  - - 2.2.2.13
+    - B:
+        Aktion: 'A1: _ZAT_Kurzdruck
+
+          A2.1: 2000 ms warten
+
+          A2.2: DBR_IdcDrvBrk = 2'
+        Erwartetes Ergebnis: 'E1: DrvPTAcv_ReqCord_s_StAcvReqTmp = 4
+
+          E1: PTAcvSrv_StDrvMd = 1
+
+          E2: DrvPTAcv_ReqCord_s_StAcvReqTmp = 0
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604722.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: keine_Aktivierung_Antrieb_bei_gueltig_werden_Bremsensignal_nach_2000ms
+        Text: "Dieser Testfall pr\xFCft, ob der Antriebswunsch nach 2 Sekunden verf\xE4\
+          llt, wenn die Bedinungen nicht innerhalb dieser Zeit hergestellt wurden.\
+          \ (noch keine Anforderung dazu)"
+        Vorbedingungen: 'P1:_Ausgangszustand_Antrieb_deaktiv
+
+          P2: DBR_IdcDrvBrk = 6'
+        row: 15
+      diff: New test case
+      id: 2.2.2.13
+  - - 2.2.3.3
+    - B:
+        Aktion: "A1: ZAT_Langdruck\nA2.1: warte f\xFCr t = 5 Sekunden\nA2.2: HVLM_s_Steckerstatus.Value\
+          \ = 1"
+        Erwartetes Ergebnis: 'E1: PTAcvSrv_StDrvMd = 1
+
+          E1: DrvPTAcv_s_StAcvReq = 0
+
+          E1: Idc_ChrgPlug = 1
+
+          E2: PTAcvSrv_StDrvMd = 1'
+        ID: 604610.0
+        Kategorie: Testfall
+        Status: In Bearbeitung
+        Testfallname: Keine_Kommandierung_bei_Ladestecker_gesteckt
+        Text: "dieser Testfall pr\xFCft, dass bei gestecktem Ladestecker kein Einschalten\
+          \ des Antriebs kommandiert wird"
+        Vorbedingungen: 'P1: _Ausgangszustand_Antrieb_deaktiv
+
+          P2: HVLM_s_Steckerstatus.Value = 2'
+        row: 18
+      diff: New test case
+      id: 2.2.3.3
+file:
+- Table_old.xlsx
+- Table_new.xlsx
+navbar:
+- Testfallname
+- Vorbedingungen
+- Aktion

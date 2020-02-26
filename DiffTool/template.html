@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Excel ITK Diff</title>
+
+    <style type="text/css">
+        table {
+            border-spacing: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .blob-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .diff-table {
+            width: 100%;
+            border-collapse: separate;
+        }
+
+        .diff-table tr:not(:last-child) .line-comments {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .blob-num {
+            width: 1%;
+            min-width: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 12px;
+            line-height: 18px;
+            color: rgba(0, 0, 0, 0.3);
+            vertical-align: top;
+            text-align: right;
+            border: solid #eee;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border-width: 0 1px 0 0;
+        }
+
+        .blob-num:hover {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .blob-num:before {
+            content: attr(data-line-number);
+        }
+
+        .blob-num.non-expandable:hover {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .blob-code {
+            position: relative;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 12px;
+            color: #333;
+            vertical-align: top;
+            white-space: pre;
+            overflow: visible;
+        }
+
+        .blob-code .x-first {
+            border-top-left-radius: .2em;
+            border-bottom-left-radius: .2em;
+        }
+
+        .blob-code .x-last {
+            border-top-right-radius: .2em;
+            border-bottom-right-radius: .2em;
+        }
+
+        .blob-code-addition {
+            background-color: #eaffea;
+        }
+
+        .blob-code-addition .x {
+            background-color: #a6f3a6;
+        }
+
+        .blob-num-addition {
+            background-color: #dbffdb;
+            border-color: #c1e9c1;
+        }
+
+        .blob-code-deletion {
+            background-color: #ffecec;
+        }
+
+        .blob-code-deletion .x {
+            background-color: #f8cbcb;
+        }
+
+        .blob-num-deletion {
+            background-color: #fdd;
+            border-color: #f1c0c0;
+        }
+
+        .selected-line.blob-code {
+            background-color: #f8eec7;
+        }
+
+        .selected-line.blob-num {
+            background-color: #f6e8b5;
+            border-color: #f0db88;
+        }
+
+        .file-diff-split .blob-code {
+            width: 49%;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .file-diff-split .empty-cell {
+            cursor: default;
+            background-color: #fafafa;
+            border-right-color: #eee;
+        }
+
+        .file {
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .file .meta {
+            text-shadow: 0 1px 0 #fff;
+            border-bottom: 1px solid #d8d8d8;
+            background-color: #f7f7f7;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: 5px 10px;
+        }
+
+        body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <h2>Diff Tool</h2>
+        <p>
+            A: {{ file[0] }}<br>
+            VS<br>
+            B: {{ file[1] }}
+        </p>
+      </div>
+
+<div id="navbar">
+    {% for e in navbar %}
+    <a href="#{{e}}">{{e}}</a>
+    {% endfor %}
+</div>
+
+
+<div class="content">
+{% for e in navbar %}
+<h2 id={{e}}>{{e}}</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col" style="width: 8%">#</th>
+        <th scope="col" style="width: 16%">Name</th>
+        <th scope="col">{{e}}</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for test_name in data if data[test_name]['diff_'+e] %}
+    <tr>
+        <th scope="row">{{ loop.index }}</th>
+        <td>
+            {{ test_name }}<br>
+            Excel row A: {{ data[test_name]['A']['row'] }}<br>
+            Excel row B: {{ data[test_name]['B']['row'] }}
+
+        </td>
+
+        <td>
+            {{ data[test_name]['diff_' + e] }}
+        </td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endfor %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+        window.onscroll = function() {myFunction()};
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function myFunction() {
+          if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+          } else {
+            navbar.classList.remove("sticky");
+          }
+        }
+
+        </script>
+        
+
+</body>
+</html>
